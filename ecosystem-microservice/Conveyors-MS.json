@@ -1,0 +1,258 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Conveyor-MS - OpenAPI 3.0",
+      "description": " This is an API for a Fake Conveyors to deliver the FIAP university microservices project - Use the pass ( admin ) for authorize",
+      "termsOfService": "http://localhost:3000/terms",
+      "contact": {
+        "email": "fiap@fiap.com"
+      },
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost/3000/v1",
+        "description": " This is an API for a Fake Conveyors to deliver the FIAP university microservices project - Use the pass ( admin ) for authorize"
+      }
+    ],
+    "paths": {
+      "/conveyors": {
+        "post": {
+          "summary": "Carrier Registration",
+          "description": "This route will be responsible for registering a new Carrier",
+          "tags": ["Conveyors"],
+          "security": [{ "bearerAuth": [] }],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conveyor"
+                },
+                "examples": {
+                  "conveyor": {
+                    "value": {
+                      "name": "Transportes S.A.",
+                      "cnpj": 23222111000124,
+                      "email": "satransportes@sa.com",
+                      "type-transport":"frigorifico",
+                      "type-product":"iogurtes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "401": {
+              "description": "Not authorized"
+            },
+            "400": {
+              "description": "Carrier already registered"
+            },
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Conveyor"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/conveyors/name":{
+          "get":{
+              "description":"Carrier search by name",
+              "summary":"Carrier search by name",
+              "tags":["Conveyors"],
+              
+              "responses":{
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "array",
+                            "items":{
+                              "$ref": "#/components/schemas/Conveyor"
+                            }
+                          }
+                        }
+                      }
+                    }
+              }
+          }
+        },
+        "/conveyors/cnpj":{
+          "get":{
+              "description":"Carrier search by CNPJ",
+              "summary":"Carrier search by CNPJ",
+              "tags":["Conveyors"],
+              
+              "responses":{
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "array",
+                            "items":{
+                              "$ref": "#/components/schemas/Conveyor"
+                            }
+                          }
+                        }
+                      }
+                    }
+              }
+          }
+        },
+        "/conveyors/type-product":{
+          "get":{
+              "description":"Carrier search by type of product transported",
+              "summary":"Carrier search by type of product transported",
+              "tags":["Conveyors"],
+              
+              "responses":{
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "array",
+                            "items":{
+                              "$ref": "#/components/schemas/Conveyor"
+                            }
+                          }
+                        }
+                      }
+                    }
+              }
+          }
+        },
+        "/conveyors/id":{
+          "get":{
+              "description":"Carrier search by id",
+              "summary":"Carrier search by id",
+              "tags":["Conveyors"],
+             
+              "responses":{
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "object",
+                            "$ref": "#/components/schemas/Conveyor"
+                          }
+                        }
+                      }
+                    }
+              }
+          },
+          "put":{
+              "description":"Change Carrier by id",
+              "summary":"Change Carrier by id ",
+              "tags":["Conveyors"],
+              "security": [{ "bearerAuth": [] }],
+              
+              "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Conveyor"
+                      },
+                      "examples": {
+                        "client": {
+                          "value": {
+                            "name": "Transportes South America",
+                            "cnpj": 23222111000124,
+                            "email": "satransportes@sa.com",
+                            "type-transport":"caminhão frigorifico",
+                            "type-product":"iogurtes"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+              "responses":{
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "object",
+                            "$ref": "#/components/schemas/Conveyor"
+                          }
+                        }
+                      }
+                    }
+              }
+  
+          },
+          "delete":{
+              "description":"Delete Carrier by id",
+              "summary":"Delete Carrier by id",
+              "tags":["Conveyors"],
+              "security": [{ "bearerAuth": [] }],
+             
+              "responses":{
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "object",
+                            "$ref": "#/components/schemas/Conveyor"
+                          }
+                        }
+                      }
+                    }
+              }
+  
+          }
+          
+        }
+    },
+   
+  
+    "components": {
+    "schemas": {
+      "Conveyor": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "cnpj": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          },
+
+          "type-transport": {
+            "type": "string"
+          },
+          "type-product": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+  }
+  

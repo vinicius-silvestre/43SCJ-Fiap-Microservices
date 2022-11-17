@@ -1,0 +1,252 @@
+openapi: 3.0.1
+info:
+  title: Provider-MS - OpenAPI 3.0
+  description: |-
+    This is an API for a Fake provider to deliver the FIAP university microservices project
+  version: v1
+tags:
+- name: Provider
+  description: Operations about Provider (w/ Import and Export Requests)
+
+
+paths:
+  /api/Provider:
+    get:
+      tags:
+        - Provider
+      summary: Get provider data
+      description: List provider data
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Provider'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Provider'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Provider'
+    post:
+      tags:
+        - Provider
+      summary: Add to requested provider
+      description: Successful Boolean on Return
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Provider'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Provider'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Provider'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Provider'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+  /api/Provider/{id}:
+    get:
+      tags:
+        - Provider
+      summary: Get specific provider data
+      description: Provider data list
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Provider'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+    put:
+      tags:
+        - Provider
+      summary: Change specific provider
+      description: Successful Boolean on Return
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Provider'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Provider'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Provider'
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+        - Provider
+      summary: Delete the requested provider
+      description: Successful boolean on provider deletion
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+  /api/Provider/Import/{quantity}:
+    post:
+      tags:
+        - Provider
+      summary: Request Import of Products
+      description: Product Import Request
+      parameters:
+        - name: quantity
+          in: header
+          schema:
+            type: integer
+            format: int32
+        - name: quantity
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Provider'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+  /api/Provider/Export/{quantity}:
+    post:
+      tags:
+        - Provider
+      summary: Request Export of Products
+      description: Request Export
+      parameters:
+        - name: quantity
+          in: header
+          schema:
+            type: integer
+            format: int32
+        - name: quantity
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Provider'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        category:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: double
+        quantity:
+          type: integer
+          format: int32
+        createDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    Provider:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        createDate:
+          type: string
+          format: date-time
+      additionalProperties: false

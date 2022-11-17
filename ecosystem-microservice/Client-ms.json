@@ -1,0 +1,223 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Clients-MS - OpenAPI 3.0",
+      "description": " This is an API for a Fake Clients to deliver the FIAP university microservices project - Use the pass ( admin ) for authorize.",
+      "termsOfService": "http://localhost:3000/terms",
+      "contact": {
+        "email": "fiap@fiap.com"
+      },
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost/3000/v1",
+        "description": " This is an API for a Fake Clients to deliver the FIAP university microservices project - Use the pass ( admin ) for authorize."
+      }
+    ],
+    "paths": {
+      "/clients": {
+        "post": {
+          "summary": "Customer Registration",
+          "description": "This route will be responsible for registering a new client",
+          "tags": ["Clients"],
+          "security": [{ "bearerAuth": [] }],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                },
+                "examples": {
+                  "client": {
+                    "value": {
+                      "name": "John",
+                      "age": 25,
+                      "address": "Austin - CA "
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "401": {
+              "description": "Not authorized"
+            },
+            "400": {
+              "description": "Customer already registered"
+            },
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/clients/name":{
+          "get":{
+              "description":"Customer search by name",
+              "summary":"Customer search by name",
+              "tags":["Clients"],
+              
+              "responses":{
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "array",
+                            "items":{
+                              "$ref": "#/components/schemas/Client"
+                            }
+                          }
+                        }
+                      }
+                    }
+              }
+          }
+        },
+        "/clients/age":{
+          "get":{
+              "description":"Customer search by age",
+              "summary":"Customer search by age",
+              "tags":["Clients"],
+              
+              "responses":{
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "array",
+                            "items":{
+                              "$ref": "#/components/schemas/Client"
+                            }
+                          }
+                        }
+                      }
+                    }
+              }
+          }
+        },
+        "/clients/id":{
+          "get":{
+              "description":"Customer search by id",
+              "summary":"Customer search by id",
+              "tags":["Clients"],
+             
+              "responses":{
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "object",
+                            "$ref": "#/components/schemas/Client"
+                          }
+                        }
+                      }
+                    }
+              }
+          },
+          "put":{
+              "description":"Change Client by id",
+              "summary":"Change Client by id",
+              "tags":["Clients"],
+              "security": [{ "bearerAuth": [] }],
+              
+              "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Client"
+                      },
+                      "examples": {
+                        "client": {
+                          "value": {
+                            "name": "Johnathan ",
+                            "age": 25,
+                            "address": "Austin - Monte Sereno -  CA "
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+              "responses":{
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "object",
+                            "$ref": "#/components/schemas/Client"
+                          }
+                        }
+                      }
+                    }
+              }
+  
+          },
+          "delete":{
+              "description":"Delete customer by id",
+              "summary":"Delete customer by id",
+              "tags":["Clients"],
+              "security": [{ "bearerAuth": [] }],
+              "responses":{
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "object",
+                            "$ref": "#/components/schemas/Client"
+                          }
+                        }
+                      }
+                    }
+              }
+  
+          }
+          
+        }
+    },
+   
+  
+    "components": {
+      "schemas": {
+        "Client": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "age": {
+              "type": "number"
+            },
+            "address": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    }
+  }
+  
